@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -22,6 +23,9 @@ class ProjectController extends Controller
 
         $types = Type::select('id', 'name', 'slug', 'description')->get();
 
+        // Restituisce la lista di tutte le Technologies in JSON con messaggio di successo
+        $technologies = Technology::select('id', 'name', 'slug', 'description')->get();
+
 
 
         $successes = true;
@@ -29,7 +33,8 @@ class ProjectController extends Controller
         $response = [
             'successes' =>  $successes,
             'results' => $projects,
-            'types' => $types
+            'types' => $types,
+            'technologies' => $technologies
         ];
 
         return response()->json($response);
@@ -61,5 +66,20 @@ class ProjectController extends Controller
         }
 
         return response()->json(['successes' => true, 'project' => $type]);
+    }
+
+
+    // technologies slug
+
+    public function techBySlug($slug)
+    {
+        // Recupera il progetto con le relazioni `type` e `technologies`
+        $tech = Technology::where('slug', $slug)->first();
+
+        if (!$tech) {
+            return response()->json(['successes' => false, 'message' => 'type non trovato'], 404);
+        }
+
+        return response()->json(['successes' => true, 'project' => $tech]);
     }
 }

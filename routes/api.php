@@ -25,3 +25,8 @@ Route::get('/project-by-slug/{slug}', [ProjectController::class, 'projectBySlug'
 
 Route::get('/types', [ProjectController::class, 'index']);
 Route::get('/type-by-slug/{slug}', [ProjectController::class, 'typeBySlug']);
+
+// rotte per Technology
+
+Route::get('/technologies', [ProjectController::class, 'index']);
+Route::get('/tech-by-slug/{slug}', [ProjectController::class, 'techBySlug']);
