@@ -18,6 +18,10 @@ use App\Http\Controllers\API\ProjectController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+// rotte per Project
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/project-by-slug/{slug}', [ProjectController::class, 'projectBySlug']);
+// rotte per Types
+
+Route::get('/types', [ProjectController::class, 'index']);
+Route::get('/type-by-slug/{slug}', [ProjectController::class, 'typeBySlug']);
